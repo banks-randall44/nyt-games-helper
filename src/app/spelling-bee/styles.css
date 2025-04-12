@@ -2,8 +2,3 @@ body {
     background: rgb(50,50,50);
     color: white;
 }
-
-#spelling-bee-layout {
-    display: flex;
-    flex-direction: column;
-}

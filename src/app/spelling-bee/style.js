@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native-web'
 const style = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'top',
         alignItems: 'center'
     },
     input: {
@@ -45,7 +45,7 @@ const style = StyleSheet.create({
         margin: 5
     },
     listAllOthers: {
-        maxHeight: '60vh',
+        maxHeight: 'calc(100vh - 30em)',
         overflowY: 'scroll'
     },
     labelText: {

@@ -6,8 +6,3 @@ body {
     color: white;
 }
 
-#spelling-bee-layout {
-    display: flex;
-    flex-direction: column;
-}
-
