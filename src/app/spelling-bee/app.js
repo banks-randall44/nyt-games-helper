@@ -32,6 +32,7 @@ export function findMatches(words, letters, center) {
 
         if (isPangram(word, letters)) {
             pangrams.push(word)
+            continue
         }
         if (wordContainsOnly(word, letters)) {
             if (word.length >= 4)
