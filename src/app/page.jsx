@@ -1,13 +1,15 @@
 import Link from 'next/link'
+import { View, Text } from 'react-native-web'
+import style from './style.js'
 
 export default function Page() {
     return (
-        <div>
-            <h1>New York Times Daily Games Helper</h1>
-            <h2>By Randall Banks</h2>
-            <div>
+        <View style={style.container}>
+            <Text style={style.header}>New York Times Daily Games Helper</Text>
+            <Text style={style.subHeader}>By Randall Banks</Text>
+            <View>
                 <Link href='/spelling-bee'>Spelling Bee</Link>
-            </div>
-        </div>
+            </View>
+        </View>
     )
 }

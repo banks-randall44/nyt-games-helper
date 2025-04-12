@@ -17,6 +17,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/spelling-bee/page.js"
     ],
+    "/spelling-bee/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/spelling-bee/loading.js"
+    ],
     "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
