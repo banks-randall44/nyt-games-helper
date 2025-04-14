@@ -1,5 +1,6 @@
 import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native-web'
-import NavItemExpanded from './NavItemExpanded.jsx'
+import NavItem from './NavItem.jsx'
+import CustomButton from './CustomButton.jsx'
 import Link from 'next/link'
 
 const style = StyleSheet.create({
@@ -8,17 +9,17 @@ const style = StyleSheet.create({
     }
 })
 
-const childrenExpanded = () => {
+const itemsExpanded = () => {
     return (
         <>
-            <NavItemExpanded
+            <NavItem
                 child={<Link style={style.link} href='/spelling-bee'>Spelling Bee</Link>}
             />
-            <NavItemExpanded
+            <NavItem
                 child={<Link style={style.link} href='/'>Home</Link>}
             />
         </>
     )
 }
 
-export default childrenExpanded
+export default itemsExpanded

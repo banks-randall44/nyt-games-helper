@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     container: {
         width: 50,
         height: 50,
-        padding: 7,
+        padding: 5,
         overflow: 'hidden'
     },
     backgroundImage: {
