@@ -26,10 +26,7 @@ export default function RootLayout({ children }) {
         <html lang="en">
         <link rel="icon" type="image/x-icon" href="/images/icon-rb.png" />
         <body style={style.body}>
-            <NavigationBar 
-                childrenCollapsed={<Text>Collapsed Child</Text>}
-                childrenExpanded={<Text>Expanded Child</Text>}
-            />
+            <NavigationBar />
             <div style={style.children}>{children}</div>
         </body>
         </html>

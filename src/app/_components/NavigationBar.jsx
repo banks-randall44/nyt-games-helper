@@ -3,10 +3,12 @@
 import { React, useState } from 'react'
 import { View, Text, TextInput, FlatList } from 'react-native-web'
 import CustomButton from './CustomButton.jsx'
+import childrenCollapsed from './NavChildrenCollapsed.jsx'
+import childrenExpanded from './NavChildrenExpanded.jsx'
 import { StyleSheet } from 'react-native-web'
 
 
-const NavigationBar = ({childrenCollapsed, childrenExpanded}) => {
+const NavigationBar = () => {
     const [isExpanded, setIsExpanded] = useState(false)
 
     const toggleExpanded = () => {
@@ -32,8 +34,8 @@ const NavigationBar = ({childrenCollapsed, childrenExpanded}) => {
                 style={style.button}
             > 
             </CustomButton>
-            {!isExpanded && <View style={style.childrenCollapsed}>{childrenCollapsed}</View>}
-            {isExpanded && <View style={style.childrenExpanded}>{childrenExpanded}</View>}
+            {!isExpanded && <View style={style.childrenCollapsed}>{childrenCollapsed()}</View>}
+            {isExpanded && <View style={style.childrenExpanded}>{childrenExpanded()}</View>}
         </View>
     )
 }
@@ -66,12 +68,15 @@ const style = StyleSheet.create({
         height: 'calc(100% - 50px)',
         position: 'absolute',
         width: '100%',
+        textAlign: 'center',
         top: 50
     },
     childrenExpanded: {
         height: 'calc(100% - 50px)',
         position: 'absolute',
         width: '100%',
+        textAlign: 'center',
+        color: 'black',
         top: 50
     }
 })

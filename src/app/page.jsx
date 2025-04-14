@@ -7,9 +7,6 @@ export default function Page() {
         <View style={style.container}>
             <Text style={style.header}>New York Times Daily Games Helper</Text>
             <Text style={style.subHeader}>By Randall Banks</Text>
-            <View>
-                <Link href='/spelling-bee'>Spelling Bee</Link>
-            </View>
         </View>
     )
 }
