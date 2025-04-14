@@ -7,10 +7,13 @@ const style = StyleSheet.create({
         alignItems: 'center'
     }, 
     header: {
+        color: 'white',
+        flex: 1,
         fontSize: 50,
         fontWeight: 'bold'
     },
     subHeader: {
+        color: 'white',
         fontSize: 30,
         fontStyle: 'italic',
         marginBottom: 30

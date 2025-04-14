@@ -25,9 +25,8 @@ const Page = () => {
         pangrams = []
         allOthers = []
 
-        let file = await server.readWordList()
-
         // Fetch matches from txt file on the server
+        //let file = await server.readWordList()
         //let matches = app.findMatches(file.split("\n"), outerText, centerText)
 
         // Fetch matches from npm library
