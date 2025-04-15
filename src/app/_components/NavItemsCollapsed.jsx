@@ -12,6 +12,11 @@ const itemsCollapsed = () => {
     return (
         <>
             <NavItem
+                imageSource={'images/house.png'}
+                text={''}
+                destination={'/'}
+            />
+            <NavItem
                 imageSource={'images/bee.png'}
                 text={''}
                 destination={'/spelling-bee'}
@@ -20,11 +25,6 @@ const itemsCollapsed = () => {
                 imageSource={'images/wordle-logo.svg'}
                 text={''}
                 destination={'/wordle'}
-            />
-            <NavItem
-                imageSource={'images/house.png'}
-                text={''}
-                destination={'/'}
             />
         </>
     )

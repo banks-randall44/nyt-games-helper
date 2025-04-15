@@ -18,6 +18,12 @@ const itemsExpanded = () => {
     return (
         <View style={style.container}>
             <NavItem
+                imageSource={'images/house.png'}
+                text={'Home'}
+                destination={'/'}
+                textStyle={style.text}
+            />
+            <NavItem
                 imageSource={'images/bee.png'}
                 text={'Spelling Bee'}
                 destination={'/spelling-bee'}
@@ -27,12 +33,6 @@ const itemsExpanded = () => {
                 imageSource={'images/wordle-logo.svg'}
                 text={'Wordle'}
                 destination={'/wordle'}
-                textStyle={style.text}
-            />
-            <NavItem
-                imageSource={'images/house.png'}
-                text={'Home'}
-                destination={'/'}
                 textStyle={style.text}
             />
         </View>
