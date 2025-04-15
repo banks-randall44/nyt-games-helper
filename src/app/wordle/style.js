@@ -16,6 +16,33 @@ const style = StyleSheet.create({
     gridContainer: {
     },
     keyboardContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        marginTop: 100
+    },
+    key: {
+        backgroundColor: 'rgb(200,200,200)',
+        marginLeft: 2,
+        marginRight: 2,
+        marginBottom: 5,
+        padding: 2,
+        paddingLeft: 10,
+        paddingRight: 10,
+        borderRadius: 5,
+        minWidth: 50,
+        height: 60,
+        justifyContent: 'center'
+    },
+    keyText: {
+        fontSize: 24,
+        color: 'white',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
+    keyboardRow: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center'
     },
     letterTile: {
         border: '2px solid rgb(100,100,100)',
