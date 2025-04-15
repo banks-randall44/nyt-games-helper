@@ -7,11 +7,17 @@ import Keyboard from './_components/Keyboard.jsx'
 import style from './style.js'
 
 const Page = () => {
+    const handleKeyPress = () => {
+        console.log('Key Pressed')
+    }
+
     return (
         <View style={style.container}>
             <Text style={style.headerText}>Wordle</Text>
             <WordGrid />
-            <Keyboard />
+            <Keyboard 
+                onKeyPress={handleKeyPress}
+            />
         </View>
     )
 }

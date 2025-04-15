@@ -2,7 +2,7 @@ import { View, Text, TextInput } from 'react-native-web'
 import { useState, useRef } from 'react'
 import style from '../style.js'
 
-// Tile Component
+// DOM refs needed for focusing tiles and grabbing values
 const inputRefs = []
 for (let r = 0; r < 6; r++) {
     inputRefs[r] = []
@@ -11,27 +11,37 @@ for (let r = 0; r < 6; r++) {
     }
 }
 
+// Tile Component
 const LetterTile = ({ row, col }) => {
     let [value, setValue] = useState('')
 
     inputRefs[row][col] = useRef(null)
 
     const handleChangeText = (text) => {
-        console.log('Input edited:')
-        console.log(inputRefs[row][col])
-
         if (text.length) {
             // Text added. Focus next cell
             if (col < 4) {
                 const target = inputRefs[row][col+1]
                 target.current.focus()
-            } else {
-                console.log('Reached end of word input')
             }
         } else {
+            // Text removed. Focus previous cell
+            if (col > 0) {
+                const target = inputRefs[row][col-1]
+                target.current.focus()
+            }
         }
 
         setValue(text)
+    }
+
+    const handleKeyPress = (key) => {
+        if (key.code == 'Backspace') {
+            if (col > 0) {
+                const target = inputRefs[row][col-1]
+                target.current.focus()
+            }
+        }
     }
 
     return (
@@ -42,6 +52,7 @@ const LetterTile = ({ row, col }) => {
                 maxLength={1}
                 value={value.toUpperCase()}
                 onChangeText={handleChangeText}
+                //onKeyPress={handleKeyPress}
             />
         </View>
     )
