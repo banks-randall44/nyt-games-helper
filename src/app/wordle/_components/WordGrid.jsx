@@ -3,30 +3,41 @@ import { useState, useRef } from 'react'
 import style from '../style.js'
 
 // Tile Component
+const inputRefs = []
+for (let r = 0; r < 6; r++) {
+    inputRefs[r] = []
+    for (let c = 0; c < 5; c++) {
+        inputRefs[r][c] = null
+    }
+}
+
 const LetterTile = ({ row, col }) => {
     let [value, setValue] = useState('')
-    const [focusTarget, setFocusTarget] = useState([0,0])
 
+    inputRefs[row][col] = useRef(null)
 
     const handleChangeText = (text) => {
-        // Update focus target
-        // If text is empty, go back a tile. Otherwise, go forward
-        // TODO
+        console.log('Input edited:')
+        console.log(inputRefs[row][col])
+
+        if (text.length) {
+            // Text added. Focus next cell
+            if (col < 4) {
+                const target = inputRefs[row][col+1]
+                target.current.focus()
+            } else {
+                console.log('Reached end of word input')
+            }
+        } else {
+        }
 
         setValue(text)
-    }
-
-    // Focus the top left tile
-    let autoFocus = false
-    if (row == focusTarget[0] && col == focusTarget[1]) {
-        console.log('focusing on ('+row+','+col+')')
-        autoFocus = true
     }
 
     return (
         <View style={style.letterTile}>
             <TextInput
-                autoFocus={autoFocus}
+                ref={inputRefs[row][col]}
                 style={style.letterInput}
                 maxLength={1}
                 value={value.toUpperCase()}
