@@ -1,24 +1,41 @@
 import { View, Text, TextInput, FlatList, StyleSheet } from 'react-native-web'
 import NavItem from './NavItem.jsx'
 import CustomButton from './CustomButton.jsx'
-import Link from 'next/link'
 
 const style = StyleSheet.create({
-    link: {
-        color: 'black'
+    container: {
+        paddingLeft: 30
+    },
+    text: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 16,
+        left: 60
     }
 })
 
 const itemsExpanded = () => {
     return (
-        <>
+        <View style={style.container}>
             <NavItem
-                child={<Link style={style.link} href='/spelling-bee'>Spelling Bee</Link>}
+                imageSource={'images/bee.png'}
+                text={'Spelling Bee'}
+                destination={'/spelling-bee'}
+                textStyle={style.text}
             />
             <NavItem
-                child={<Link style={style.link} href='/'>Home</Link>}
+                imageSource={'images/wordle-logo.svg'}
+                text={'Wordle'}
+                destination={'/wordle'}
+                textStyle={style.text}
             />
-        </>
+            <NavItem
+                imageSource={'images/house.png'}
+                text={'Home'}
+                destination={'/'}
+                textStyle={style.text}
+            />
+        </View>
     )
 }
 

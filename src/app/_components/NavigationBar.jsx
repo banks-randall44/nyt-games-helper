@@ -31,7 +31,7 @@ const NavigationBar = () => {
                 onPress={toggleExpanded}
                 title={''}
                 imageSource={imgSource}
-                style={style.button}
+                containerStyle={style.button}
             /> 
             {!isExpanded && <View style={style.itemsCollapsed}>{itemsCollapsed()}</View>}
             {isExpanded && <View style={style.itemsExpanded}>{itemsExpanded()}</View>}

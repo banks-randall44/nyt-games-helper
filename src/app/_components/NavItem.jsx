@@ -10,21 +10,16 @@ const style = StyleSheet.create({
     }
 })
 
-const NavItem = ({ text, imageSource, destination }) => {
-    const handlePress = () => {
-        console.log('Navigating to: ' + destination)
-    }
-
+const NavItem = ({ text, textStyle, imageSource, destination }) => {
     const router = useRouter()
 
-    // Href works, but it performs a whole new page request that causes the broswer to re-
-    // request everything from the server. Need to leverage react navigation
     return (
         <View style={style.container}>
             <CustomButton
                 imageSource={imageSource}
                 onPress={() => router.push(destination)}
                 title={text}
+                textStyle={textStyle}
             />
         </View>
     )
