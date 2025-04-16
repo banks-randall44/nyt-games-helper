@@ -4,14 +4,25 @@ const style = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'top',
-        alignItems: 'center'
+        alignItems: 'center',
+    },
+    pageComponents: {
+        flex: 1,
+        flexDirection: 'column'
+    },
+    inputs: {
+    },
+    results: {
+        flex: 1,
+        flexDirection: 'row',
     },
     input: {
         backgroundColor: 'white',
         color: 'black',
         textAlign: 'center',
-        width: '6em',
         height: '1.5em',
+        width: '80%',
+        margin: 'auto',
         fontSize: 30,
         marginBottom: 10
     },
@@ -21,7 +32,6 @@ const style = StyleSheet.create({
     },
     button: {
         backgroundColor: "#428af5",
-        width: '10em',
         height: '2em',
         marginTop: 10,
         marginBottom: 20
@@ -39,21 +49,23 @@ const style = StyleSheet.create({
         textAlign: 'center',
         color: 'white'
     },
-    list: {
-        width: '10em',
-        height: '2em',
-        flex: 1,
-        margin: 5
+    listPangrams: {
+        height: 300,
+        width: 150,
+        margin: 10,
     },
     listAllOthers: {
-        maxHeight: '40vh',
-        overflowY: 'scroll'
+        width: 150,
+        height: 300,
+        margin: 10,
+        overflowY: 'scroll',
     },
     labelText: {
         textAlign: 'center',
         color: 'white',
         fontStyle: 'italic',
-        fontSize: 20
+        fontSize: 20,
+        marginBottom: 5
     },
     listItem: {
         backgroundColor: '#55c2c9',
@@ -61,6 +73,7 @@ const style = StyleSheet.create({
     },
     listText: {
         color: 'black',
+        fontSize: 24,
         textAlign: 'center'
     }
 })

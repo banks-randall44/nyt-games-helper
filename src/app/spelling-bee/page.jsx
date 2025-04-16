@@ -54,43 +54,51 @@ const Page = () => {
     return (
         <View style={style.container}>
             <Text style={style.headerText}>Spelling Bee</Text>
-            <View>
-                <Text style={style.labelText}>Outer Letters</Text>
-                <TextInput 
-                    style={style.input}
-                    onChangeText={outerOnChangeText}
-                    value={outerText}
-                />
-                <Text style={style.labelText}>Center</Text>
-                <TextInput 
-                    style={[style.input,style.inputCenter]}
-                    onChangeText={centerOnChangeText}
-                    value={centerText}
-                />
-            </View>
-            <View>
-                <TouchableOpacity onPress={handleClick} style={style.button}>
-                    <Text style={style.buttonText}>Find Words</Text>
-                </TouchableOpacity>
-            </View>
-            <View>
-                <Text style={style.labelText}>Pangrams</Text>
-                <View style={style.list}>
-                    <FlatList
-                        data={pangrams}
-                        renderItem={({item}) => 
-                            <ListItem style={style.listText} text={item.text} />}
-                        keyExtractor={item => item.id}
-                    />
+            <View style={style.pageComponents}>
+                <View style={style.inputs}>
+                    <View>
+                        <Text style={style.labelText}>Outer Letters</Text>
+                        <TextInput 
+                            style={style.input}
+                            onChangeText={outerOnChangeText}
+                            value={outerText}
+                        />
+                        <Text style={style.labelText}>Center</Text>
+                        <TextInput 
+                            style={[style.input,style.inputCenter]}
+                            onChangeText={centerOnChangeText}
+                            value={centerText}
+                        />
+                    </View>
+                    <View>
+                        <TouchableOpacity onPress={handleClick} style={style.button}>
+                            <Text style={style.buttonText}>Find Words</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <Text style={style.labelText}>All other valid words</Text>
-                <View style={[style.list,style.listAllOthers]}>
-                    <FlatList
-                        data={allOthers}
-                        renderItem={({item}) => 
-                            <ListItem style={style.listText} text={item.text} />}
-                        keyExtractor={item => item.id}
-                    />
+                <View style={style.results}>
+                    <View>
+                        <Text style={style.labelText}>Pangrams</Text>
+                        <View style={style.listPangrams}>
+                            <FlatList
+                                data={pangrams}
+                                renderItem={({item}) => 
+                                    <ListItem style={style.listText} text={item.text} />}
+                                keyExtractor={item => item.id}
+                            />
+                        </View>
+                    </View>
+                    <View>
+                        <Text style={style.labelText}>Valid words</Text>
+                        <View style={[style.list,style.listAllOthers]}>
+                            <FlatList
+                                data={allOthers}
+                                renderItem={({item}) => 
+                                    <ListItem style={style.listText} text={item.text} />}
+                                keyExtractor={item => item.id}
+                            />
+                        </View>
+                    </View>
                 </View>
             </View>
         </View>
