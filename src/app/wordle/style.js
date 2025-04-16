@@ -18,7 +18,11 @@ const style = StyleSheet.create({
     keyboardContainer: {
         flex: 1,
         justifyContent: 'center',
-        marginTop: 100
+        marginTop: 50,
+        width: 'calc(100% - 10px)',
+        maxWidth: 600,
+        maxHeight: '30vh',
+        aspectRatio: 2
     },
     key: {
         backgroundColor: 'rgb(200,200,200)',
@@ -26,11 +30,10 @@ const style = StyleSheet.create({
         marginRight: 2,
         marginBottom: 4,
         padding: 2,
-        paddingLeft: 10,
-        paddingRight: 10,
+        paddingLeft: 5,
+        paddingRight: 5,
         borderRadius: 5,
-        minWidth: 30,
-        height: 40,
+        minWidth: 'calc(100% / 12)',
         justifyContent: 'center'
     },
     keyText: {
@@ -47,10 +50,8 @@ const style = StyleSheet.create({
     letterTile: {
         border: '2px solid rgb(100,100,100)',
         boxSizing: 'border-box',
-        height: '10%', 
-        width: '50vh',
-        maxWidth: 70,
-        maxHeight: 70,
+        height: '7vh',
+        aspectRatio: 1,
         margin: 2,
     },
     letterInput: {
