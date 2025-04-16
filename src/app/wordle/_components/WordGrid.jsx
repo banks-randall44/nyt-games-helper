@@ -37,7 +37,9 @@ const LetterTile = ({ row, col }) => {
 
     const handleKeyPress = (key) => {
         if (key.code == 'Backspace') {
-            if (col > 0) {
+            // If current tile is already empty, move back
+            let value = inputRefs[row][col].current.value
+            if (!value.length && col > 0) {
                 const target = inputRefs[row][col-1]
                 target.current.focus()
             }
@@ -52,7 +54,7 @@ const LetterTile = ({ row, col }) => {
                 maxLength={1}
                 value={value.toUpperCase()}
                 onChangeText={handleChangeText}
-                //onKeyPress={handleKeyPress}
+                onKeyPress={handleKeyPress}
             />
         </View>
     )

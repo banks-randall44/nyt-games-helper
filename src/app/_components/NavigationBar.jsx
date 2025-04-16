@@ -44,13 +44,14 @@ const style = StyleSheet.create({
         justifyContent: 'top',
         zIndex: 100,
         backgroundColor: 'rgb(200,200,200)',
-        height: '100vh',
-        left: 0,
-        position: 'sticky',
+        height: 'fit-content',
+        margin: 5,
+        borderRadius: 10,
+        position: 'absolute',
         boxShadow: 'rgba(0, 0, 0, 0.15) 1.95px 0px 2.6px'
     },
     button: {
-        position: 'absolute',
+        borderRadius: 10,
         right: 0,
         width: 50,
         height: 50,
@@ -65,18 +66,18 @@ const style = StyleSheet.create({
     },
     itemsCollapsed: {
         height: 'calc(100% - 50px)',
-        position: 'absolute',
         width: '100%',
+        backgroundColor: 'rgb(200,200,200)',
         textAlign: 'center',
-        top: 50
+        borderRadius: 10
     },
     itemsExpanded: {
-        height: 'calc(100% - 50px)',
-        position: 'absolute',
+        height: '100%',
         width: '100%',
         textAlign: 'center',
+        backgroundColor: 'rgb(200,200,200)',
         color: 'black',
-        top: 50
+        borderRadius: 10
     }
 })
 

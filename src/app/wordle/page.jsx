@@ -7,8 +7,13 @@ import Keyboard from './_components/Keyboard.jsx'
 import style from './style.js'
 
 const Page = () => {
-    const handleKeyPress = () => {
-        console.log('Key Pressed')
+    const handleKeyPress = (text) => {
+        console.log('Key pressed: ' + text)
+
+        if (text == 'Delete') {
+        } else if (text == 'Enter') {
+        } else {
+        }
     }
 
     return (
@@ -21,6 +26,5 @@ const Page = () => {
         </View>
     )
 }
-
 
 export default Page

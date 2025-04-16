@@ -14,10 +14,6 @@ const style = StyleSheet.create({
         color: 'white'
     },
     children: {
-        position: 'absolute',
-        top: 0,
-        width: 'calc(100% - 50px)',
-        marginLeft: 50
     }
 })
 

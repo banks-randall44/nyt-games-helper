@@ -10,6 +10,8 @@ const style = StyleSheet.create({
         color: 'white',
         flex: 1,
         fontSize: 50,
+        width: 'calc(100% - 100px)',
+        textAlign: 'center',
         fontWeight: 'bold'
     },
     subHeader: {

@@ -11,21 +11,6 @@ const style = StyleSheet.create({
 const itemsCollapsed = () => {
     return (
         <>
-            <NavItem
-                imageSource={'images/house.png'}
-                text={''}
-                destination={'/'}
-            />
-            <NavItem
-                imageSource={'images/bee.png'}
-                text={''}
-                destination={'/spelling-bee'}
-            />
-            <NavItem
-                imageSource={'images/wordle-logo.svg'}
-                text={''}
-                destination={'/wordle'}
-            />
         </>
     )
 }

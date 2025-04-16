@@ -33,6 +33,7 @@ const style = StyleSheet.create({
     },
     headerText: {
         marginBottom: 30,
+        width: 'calc(100% - 100px)',
         fontSize: 80,
         fontFamily: 'nyt-karnakcondensed',
         textAlign: 'center',
@@ -45,7 +46,7 @@ const style = StyleSheet.create({
         margin: 5
     },
     listAllOthers: {
-        maxHeight: 'calc(100vh - 30em)',
+        maxHeight: '40vh',
         overflowY: 'scroll'
     },
     labelText: {

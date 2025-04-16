@@ -24,13 +24,13 @@ const style = StyleSheet.create({
         backgroundColor: 'rgb(200,200,200)',
         marginLeft: 2,
         marginRight: 2,
-        marginBottom: 5,
+        marginBottom: 4,
         padding: 2,
         paddingLeft: 10,
         paddingRight: 10,
         borderRadius: 5,
-        minWidth: 50,
-        height: 60,
+        minWidth: 30,
+        height: 40,
         justifyContent: 'center'
     },
     keyText: {
@@ -47,11 +47,11 @@ const style = StyleSheet.create({
     letterTile: {
         border: '2px solid rgb(100,100,100)',
         boxSizing: 'border-box',
-        height: 80,
-        width: 80,
-        marginLeft: 2,
-        marginRight: 2,
-        marginBottom: 4
+        height: '10%', 
+        width: '50vh',
+        maxWidth: 70,
+        maxHeight: 70,
+        margin: 2,
     },
     letterInput: {
         width: '100%',
