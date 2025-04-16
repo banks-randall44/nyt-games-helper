@@ -25,6 +25,10 @@ const NavigationBar = () => {
         imgSource = 'images/Hamburger_icon.svg';
     }
 
+    const closeNavBar = () => {
+        setIsExpanded(false)
+    }
+
     return (
         <View style={styles}>
             <CustomButton
@@ -34,7 +38,7 @@ const NavigationBar = () => {
                 containerStyle={style.button}
             /> 
             {!isExpanded && <View style={style.itemsCollapsed}>{itemsCollapsed()}</View>}
-            {isExpanded && <View style={style.itemsExpanded}>{itemsExpanded()}</View>}
+            {isExpanded && <View style={style.itemsExpanded}>{itemsExpanded(closeNavBar)}</View>}
         </View>
     )
 }

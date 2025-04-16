@@ -10,14 +10,19 @@ const style = StyleSheet.create({
     }
 })
 
-const NavItem = ({ text, textStyle, imageSource, destination }) => {
+const NavItem = ({ text, textStyle, imageSource, destination, clickCallback }) => {
     const router = useRouter()
+
+    const onPress = () => {
+        router.push(destination)
+        clickCallback()
+    }
 
     return (
         <View style={style.container}>
             <CustomButton
                 imageSource={imageSource}
-                onPress={() => router.push(destination)}
+                onPress={onPress}
                 title={text}
                 textStyle={textStyle}
             />

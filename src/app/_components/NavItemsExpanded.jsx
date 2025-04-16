@@ -14,7 +14,7 @@ const style = StyleSheet.create({
     }
 })
 
-const itemsExpanded = () => {
+const itemsExpanded = (clickCallback) => {
     return (
         <View style={style.container}>
             <NavItem
@@ -22,18 +22,21 @@ const itemsExpanded = () => {
                 text={'Home'}
                 destination={'/'}
                 textStyle={style.text}
+                clickCallback={clickCallback}
             />
             <NavItem
                 imageSource={'images/bee.png'}
                 text={'Spelling Bee'}
                 destination={'/spelling-bee'}
                 textStyle={style.text}
+                clickCallback={clickCallback}
             />
             <NavItem
                 imageSource={'images/wordle-logo.svg'}
                 text={'Wordle'}
                 destination={'/wordle'}
                 textStyle={style.text}
+                clickCallback={clickCallback}
             />
         </View>
     )
