@@ -2,17 +2,15 @@
 
 import { React, useState } from 'react'
 import { View, Text, TextInput } from 'react-native-web'
-import { WordGrid, inputRefs } from './_components/WordGrid.jsx'
+import WordGrid from './_components/WordGrid.jsx'
 import Keyboard from './_components/Keyboard.jsx'
 import style from './style.js'
 import globals from './globals.js'
 
-const TARGET_WORD = 'RANDY'
-
 const getFirstEmptyInput = () =>  {
     let row = globals.currentRow
-    for (let col = 0; col < inputRefs[row].length; col++) {
-        let ref = inputRefs[row][col]
+    for (let col = 0; col < globals.tileRefs[row].length; col++) {
+        let ref = globals.tileRefs[row][col]
         if (!ref.current.value) {
             return ref.current
         }
@@ -23,8 +21,8 @@ const getFirstEmptyInput = () =>  {
 
 const getLastFilledInput = () =>  {
     let row = globals.currentRow
-    for (let col = (inputRefs[row].length - 1); col >= 0; col--) {
-        let ref = inputRefs[row][col]
+    for (let col = (globals.tileRefs[row].length - 1); col >= 0; col--) {
+        let ref = globals.tileRefs[row][col]
         if (ref.current.value) {
             return ref.current
         }
@@ -34,7 +32,7 @@ const getLastFilledInput = () =>  {
 }
 
 const getWordFromRow = (row) => {
-    let inputs = inputRefs[row]
+    let inputs = globals.tileRefs[row]
     let word = ''
     for (let i = 0; i < inputs.length; i++) {
         word += inputs[i].current.value
@@ -77,7 +75,7 @@ const getDirectHits = (word) => {
 }
 
 const colorHits = (row,hits) => {
-    let inputs = inputRefs[row]
+    let inputs = globals.tileRefs[row]
     for (let i = 0; i < inputs.length; i++) {
         if (hits.directHits.includes(i)) {
             let color = "rgb(0,150,0)"
@@ -114,34 +112,54 @@ const colorHits = (row,hits) => {
     }
 }
 
-const gameOver = () => {
-    window.alert('Game over. Tough luck, buddy')
+const gameOver = (condition) => {
+    switch (condition) {
+        case 'loss':
+            window.alert('Game over. The word was: ' + globals.targetWord)
+        case 'win':
+            window.alert('Great job!')
+    }
+}
+
+const enterPressed = () => {
+    // Submit the current row
+    let word = getWordFromRow(globals.currentRow)
+    if (word.length < 5) return
+
+    let hits = checkWord(word)
+    colorHits(globals.currentRow,hits)
+    if (hits.directHits.length == 5) {
+        gameOver('win')
+        return
+    }
+
+    globals.currentRow++
+    if (globals.currentRow == 6) {
+        gameOver('loss')
+        return
+    }
+}
+
+const deletePressed = () => {
+    // Delete the last letter
+    let input = getLastFilledInput()
+    if (input) input.value = ''
 }
 
 const Page = () => {
     const handleKeyPress = (text) => {
-
         
-        if (text == 'Delete') {
-            // Delete the last letter
-            let input = getLastFilledInput()
-            if (input) input.value = ''
-
-        } else if (text == 'Enter') {
-            // Submit the current row
-            let word = getWordFromRow(globals.currentRow)
-            if (word.length < 5) return
-
-            let hits = checkWord(word)
-            colorHits(globals.currentRow,hits)
-
-            globals.currentRow++
-            if (globals.currentRow == 6) gameOver()
-
-        } else {
-            // Add letter to tile input
-            let input = getFirstEmptyInput()
-            if (input) input.value = text
+        switch (text) {
+            case 'Delete':
+                deletePressed()
+                break
+            case 'Enter':
+                enterPressed()
+                break
+            default:
+                // Add letter to tile input
+                let input = getFirstEmptyInput()
+                if (input) input.value = text
         }
     }
 

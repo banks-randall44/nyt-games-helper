@@ -1,33 +1,25 @@
 import { View, Text, TextInput } from 'react-native-web'
 import { useState, useRef } from 'react'
 import style from '../style.js'
-
-// DOM refs needed for focusing tiles and grabbing values
-const inputRefs = []
-for (let r = 0; r < 6; r++) {
-    inputRefs[r] = []
-    for (let c = 0; c < 5; c++) {
-        inputRefs[r][c] = null
-    }
-}
+import globals from '../globals.js'
 
 // Tile Component
 const LetterTile = ({ row, col }) => {
     let [value, setValue] = useState('')
 
-    inputRefs[row][col] = useRef(null)
+    globals.tileRefs[row][col] = useRef(null)
 
     const handleChangeText = (text) => {
         if (text.length) {
             // Text added. Focus next cell
             if (col < 4) {
-                const target = inputRefs[row][col+1]
+                const target = globals.tileRefs[row][col+1]
                 target.current.focus()
             }
         } else {
             // Text removed. Focus previous cell
             if (col > 0) {
-                const target = inputRefs[row][col-1]
+                const target = globals.tileRefs[row][col-1]
                 target.current.focus()
             }
         }
@@ -38,9 +30,9 @@ const LetterTile = ({ row, col }) => {
     const handleKeyPress = (key) => {
         if (key.code == 'Backspace') {
             // If current tile is already empty, move back
-            let value = inputRefs[row][col].current.value
+            let value = globals.tileRefs[row][col].current.value
             if (!value.length && col > 0) {
-                const target = inputRefs[row][col-1]
+                const target = globals.tileRefs[row][col-1]
                 target.current.focus()
             }
         }
@@ -49,7 +41,7 @@ const LetterTile = ({ row, col }) => {
     return (
         <View style={style.letterTile}>
             <TextInput
-                ref={inputRefs[row][col]}
+                ref={globals.tileRefs[row][col]}
                 style={style.letterInput}
                 maxLength={1}
                 value={value.toUpperCase()}
@@ -87,4 +79,4 @@ const WordGrid = () => {
     )
 }
 
-export { WordGrid, inputRefs }
+export default WordGrid
