@@ -1,11 +1,13 @@
 import { View, Text, TextInput } from 'react-native-web'
 import CustomButton from '../../_components/CustomButton.jsx'
 import style from '../style.js'
+import globals from '../globals.js'
 
 // Keyboard 'key' component
 const Key = ({ text, onKeyPress }) => {
     const onPress = () => {
         onKeyPress(text)
+        globals.lastLetterPressed = text
     }
 
     return (
