@@ -49,6 +49,7 @@ const style = StyleSheet.create({
     },
     letterTile: {
         border: '2px solid rgb(100,100,100)',
+        backgroundColor: 'rgb(50,50,50)',
         boxSizing: 'border-box',
         height: '7vh',
         aspectRatio: 1,

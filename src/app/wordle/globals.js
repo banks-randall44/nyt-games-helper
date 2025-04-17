@@ -1,7 +1,7 @@
 let globals = {
     targetWord: 'RANDY',
     currentRow: 0,
-    lastLetterPressed: ''
+    keyRefs: {}
 }
 
 export default globals

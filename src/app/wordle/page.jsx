@@ -10,12 +10,11 @@ import globals from './globals.js'
 const TARGET_WORD = 'RANDY'
 
 const getFirstEmptyInput = () =>  {
-    for (let row = 0; row < inputRefs.length; row++) {
-        for (let col = 0; col < inputRefs[row].length; col++) {
-            let ref = inputRefs[row][col]
-            if (!ref.current.value) {
-                return ref.current
-            }
+    let row = globals.currentRow
+    for (let col = 0; col < inputRefs[row].length; col++) {
+        let ref = inputRefs[row][col]
+        if (!ref.current.value) {
+            return ref.current
         }
     }
 
@@ -23,12 +22,11 @@ const getFirstEmptyInput = () =>  {
 }
 
 const getLastFilledInput = () =>  {
-    for (let row = (inputRefs.length - 1); row >= 0; row--) {
-        for (let col = (inputRefs[row].length - 1); col >= 0; col--) {
-            let ref = inputRefs[row][col]
-            if (ref.current.value) {
-                return ref.current
-            }
+    let row = globals.currentRow
+    for (let col = (inputRefs[row].length - 1); col >= 0; col--) {
+        let ref = inputRefs[row][col]
+        if (ref.current.value) {
+            return ref.current
         }
     }
 
@@ -78,23 +76,52 @@ const getDirectHits = (word) => {
     return hits
 }
 
-const colorGridTiles = (row,hits) => {
+const colorHits = (row,hits) => {
     let inputs = inputRefs[row]
     for (let i = 0; i < inputs.length; i++) {
         if (hits.directHits.includes(i)) {
-            inputs[i].current.style.backgroundColor = "rgb(0,150,0)"
+            let color = "rgb(0,150,0)"
+
+            // Color tile
+            inputs[i].current.style.backgroundColor = color
+
+            // Color key
+            let char = inputs[i].current.value
+            let key = globals.keyRefs[char].current
+            key.style.backgroundColor = color
         }
         else if (hits.indirectHits.includes(i)) {
-            inputs[i].current.style.backgroundColor = "rgb(200,200,0)"
+            let color = "rgb(200,200,0)"
+
+            // Color tile
+            inputs[i].current.style.backgroundColor = color
+
+            // Color key
+            let char = inputs[i].current.value
+            let key = globals.keyRefs[char].current
+            key.style.backgroundColor = color
         } else {
-            inputs[i].current.style.backgroundColor = "rgb(20,20,20)"
+            let color = "rgb(20,20,20)"
+
+            // Color tile
+            inputs[i].current.style.backgroundColor = color
+
+            // Color key
+            let char = inputs[i].current.value
+            let key = globals.keyRefs[char].current
+            key.style.backgroundColor = color
         }
     }
+}
+
+const gameOver = () => {
+    window.alert('Game over. Tough luck, buddy')
 }
 
 const Page = () => {
     const handleKeyPress = (text) => {
 
+        
         if (text == 'Delete') {
             // Delete the last letter
             let input = getLastFilledInput()
@@ -103,9 +130,13 @@ const Page = () => {
         } else if (text == 'Enter') {
             // Submit the current row
             let word = getWordFromRow(globals.currentRow)
+            if (word.length < 5) return
+
             let hits = checkWord(word)
-            colorGridTiles(globals.currentRow,hits)
+            colorHits(globals.currentRow,hits)
+
             globals.currentRow++
+            if (globals.currentRow == 6) gameOver()
 
         } else {
             // Add letter to tile input

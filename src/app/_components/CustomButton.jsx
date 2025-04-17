@@ -3,9 +3,12 @@
 import React from 'react';
 import { TouchableOpacity, ImageBackground, Text, StyleSheet } from 'react-native-web';
 
-const CustomButton = ({ onPress, title, imageSource, containerStyle, textStyle }) => {
+const CustomButton = ({ onPress, title, imageSource, containerStyle, textStyle, ref }) => {
     return (
-        <TouchableOpacity onPress={onPress} style={containerStyle || styles.container}>
+        <TouchableOpacity 
+            onPress={onPress} 
+            style={containerStyle || styles.container}
+            ref={ref}>
             <ImageBackground 
                 source={imageSource} 
                 style={styles.backgroundImage} 
