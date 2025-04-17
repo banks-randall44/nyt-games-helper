@@ -17,15 +17,29 @@ const getFirstEmptyInput = () =>  {
     }
 }
 
+const getLastFilledInput = () =>  {
+    for (let row = (inputRefs.length - 1); row >= 0; row--) {
+        for (let col = (inputRefs[row].length - 1); col >= 0; col--) {
+            let ref = inputRefs[row][col]
+            if (ref.current.value) {
+                return ref.current
+            }
+        }
+    }
+}
+
 const Page = () => {
     const handleKeyPress = (text) => {
-        console.log('Key pressed: ' + text)
-
-        let input = getFirstEmptyInput();
 
         if (text == 'Delete') {
+            // Delete the last letter
+            let input = getLastFilledInput()
+            input.value = ''
         } else if (text == 'Enter') {
+            // Submit the current row
         } else {
+            // Add letter to tile input
+            let input = getFirstEmptyInput()
             input.value = text
         }
     }
