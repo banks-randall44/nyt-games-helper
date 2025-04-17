@@ -68,7 +68,7 @@ const style = StyleSheet.create({
         marginBottom: 5
     },
     listItem: {
-        backgroundColor: '#55c2c9',
+        backgroundColor: 'rgb(240, 240, 17)',
         margin: 2
     },
     listText: {
