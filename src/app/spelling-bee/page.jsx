@@ -39,6 +39,9 @@ const Page = () => {
                 text: pangram
             })
         }
+
+        // Longer words are more valuable, so we want them first
+        matches.allOthers.sort((a,b) => b.length - a.length)
         for (var i = 0; i < matches.allOthers.length; i++) {
             let word = matches.allOthers[i]
             allOthers.push({

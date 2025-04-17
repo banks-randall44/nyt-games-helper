@@ -32,14 +32,16 @@ const style = StyleSheet.create({
     },
     button: {
         backgroundColor: "#428af5",
-        height: '2em',
+        width: '80%',
+        margin: 'auto',
         marginTop: 10,
+        borderRadius: 5,
         marginBottom: 20
     },
     buttonText: {
         textAlign: 'center',
         color: 'white',
-        fontSize: 20
+        fontSize: 24
     },
     headerText: {
         marginBottom: 30,
@@ -50,13 +52,11 @@ const style = StyleSheet.create({
         color: 'white'
     },
     listPangrams: {
-        height: 300,
         width: 150,
         margin: 10,
     },
     listAllOthers: {
         width: 150,
-        height: 300,
         margin: 10,
         overflowY: 'scroll',
     },
