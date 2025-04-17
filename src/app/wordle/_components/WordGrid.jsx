@@ -87,4 +87,4 @@ const WordGrid = () => {
     )
 }
 
-export default WordGrid
+export { WordGrid, inputRefs }
