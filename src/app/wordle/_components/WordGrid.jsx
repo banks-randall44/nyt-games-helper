@@ -1,5 +1,5 @@
 import { View, Text, TextInput } from 'react-native-web'
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import style from '../style.js'
 import globals from '../globals.js'
 
@@ -9,7 +9,11 @@ const LetterTile = ({ row, col }) => {
 
     globals.tileRefs[row][col] = useRef(null)
 
+    useEffect(() => {
+        console.log('LetterTile useEffect fired')
+    })
     const handleChangeText = (text) => {
+        console.log('handleChangeText fired')
         if (text.length) {
             // Text added. Focus next cell
             if (col < 4) {

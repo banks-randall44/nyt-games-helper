@@ -10,8 +10,6 @@ const style = StyleSheet.create({
         flex: 1,
         flexDirection: 'column'
     },
-    inputs: {
-    },
     results: {
         flex: 1,
         flexDirection: 'row',
@@ -51,14 +49,11 @@ const style = StyleSheet.create({
         textAlign: 'center',
         color: 'white'
     },
-    listPangrams: {
-        width: 150,
-        margin: 10,
+    resultsLeft: {
+        width: '50%'
     },
-    listAllOthers: {
-        width: 150,
-        margin: 10,
-        overflowY: 'scroll',
+    resultsRight: {
+        width: '50%'
     },
     labelText: {
         textAlign: 'center',
@@ -69,7 +64,9 @@ const style = StyleSheet.create({
     },
     listItem: {
         backgroundColor: 'rgb(240, 240, 17)',
-        margin: 2
+	width: '90%',
+	margin: 'auto',
+	marginBottom: 5
     },
     listText: {
         color: 'black',

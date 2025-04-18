@@ -1,7 +1,7 @@
 import { View, Text } from 'react-native-web'
 
 const Loading = () => {
-    console.log('Spelling bee loading() invoked')
+    console.log('Wordle loading() invoked')
     return (
         <View>
             <Text>

@@ -80,24 +80,24 @@ const Page = () => {
                     </View>
                 </View>
                 <View style={style.results}>
-                    <View>
+                    <View style={style.resultsLeft}>
                         <Text style={style.labelText}>Pangrams</Text>
                         <View style={style.listPangrams}>
                             <FlatList
                                 data={pangrams}
                                 renderItem={({item}) => 
-                                    <ListItem style={style.listText} text={item.text} />}
+                                    <ListItem text={item.text} />}
                                 keyExtractor={item => item.id}
                             />
                         </View>
                     </View>
-                    <View>
+                    <View style={style.resultsRight}>
                         <Text style={style.labelText}>Valid words</Text>
-                        <View style={[style.list,style.listAllOthers]}>
+                        <View style={style.listAllOthers}>
                             <FlatList
                                 data={allOthers}
                                 renderItem={({item}) => 
-                                    <ListItem style={style.listText} text={item.text} />}
+                                    <ListItem text={item.text} />}
                                 keyExtractor={item => item.id}
                             />
                         </View>

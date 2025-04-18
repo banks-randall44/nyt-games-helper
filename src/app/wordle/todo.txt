@@ -1,4 +1,2 @@
-Implement keyboard functionality
-Add green/yellow colors
 Add animations
 All rows except the current should be disabled

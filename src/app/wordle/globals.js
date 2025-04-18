@@ -1,5 +1,5 @@
 let globals = {
-    targetWord: 'RANDY',
+    targetWord: 'FARTS',
     currentRow: 0,
     keyRefs: {},
     tileRefs: []
