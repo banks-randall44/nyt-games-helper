@@ -106,11 +106,18 @@ export const colorHits = (row,hits) => {
 }
 
 export const gameOver = (condition) => {
+    let confirm;
     switch (condition) {
         case 'loss':
-            window.alert('Game over. The word was: ' + globals.targetWord)
+            confirm = window.confirm(
+                'Game over. The word was: ' + globals.targetWord + '. Try again?'
+            )
+            if (confirm) window.location.reload()
+            break
         case 'win':
-            window.alert('Great job!')
+            confirm = window.confirm('Great job! Play again?')
+            if (confirm) window.location.reload()
+            break
     }
 }
 
@@ -126,7 +133,7 @@ export const enterPressed = () => {
     if (word.length < 5) return
 
     if (!isValidWord(word)) {
-        window.alert('Invaid Word')
+        window.alert('Invalid Word')
         return
     }
 

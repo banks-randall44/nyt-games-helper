@@ -12,10 +12,7 @@ import globals from './globals.js'
 const Page = () => {
     useEffect(() => {
         async function updateWordList() {
-            if (!globals.targetWord.length) {
-                globals.wordList = await server.getValidWordList()
-                console.log('wordList:',globals.wordList)
-            }
+            globals.wordList = await server.getValidWordList()
         }
         async function updateTargetWord(wordList) {
             if (!globals.targetWord.length) {

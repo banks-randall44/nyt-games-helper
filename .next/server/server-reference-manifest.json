@@ -1,9 +1,9 @@
 {
   "node": {
-    "004b093e624497adda453f43c82ecc16e3650a9dc4": {
+    "000ed0d20adc96760ec183c8569d2e64d7e54ecabf": {
       "workers": {
         "app/wordle/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Frandall%2Fprojects%2Fnyt-games-helper%2Fsrc%2Fapp%2Fwordle%2Fserver.js%22%2C%5B%7B%22id%22%3A%22004b093e624497adda453f43c82ecc16e3650a9dc4%22%2C%22exportedName%22%3A%22getRandomTargetWord%22%7D%2C%7B%22id%22%3A%2200687577dab00e042409ef3c2ab142b9ac0d354214%22%2C%22exportedName%22%3A%22readWordList%22%7D%2C%7B%22id%22%3A%2200df67646c4428234fabb6894ff2b0464267943c2d%22%2C%22exportedName%22%3A%22getValidWordList%22%7D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Frandall%2Fprojects%2Fnyt-games-helper%2Fsrc%2Fapp%2Fwordle%2Fserver.js%22%2C%5B%7B%22id%22%3A%22000ed0d20adc96760ec183c8569d2e64d7e54ecabf%22%2C%22exportedName%22%3A%22getValidWordList%22%7D%2C%7B%22id%22%3A%22007d572258554d0729d3ada71f0ba406b36a090d20%22%2C%22exportedName%22%3A%22readWordList%22%7D%2C%7B%22id%22%3A%2200f4a7202e37df26a27b4ea2b2689b81d8bbdecb32%22%2C%22exportedName%22%3A%22getRandomTargetWord%22%7D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -11,10 +11,10 @@
         "app/wordle/page": "action-browser"
       }
     },
-    "00687577dab00e042409ef3c2ab142b9ac0d354214": {
+    "007d572258554d0729d3ada71f0ba406b36a090d20": {
       "workers": {
         "app/wordle/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Frandall%2Fprojects%2Fnyt-games-helper%2Fsrc%2Fapp%2Fwordle%2Fserver.js%22%2C%5B%7B%22id%22%3A%22004b093e624497adda453f43c82ecc16e3650a9dc4%22%2C%22exportedName%22%3A%22getRandomTargetWord%22%7D%2C%7B%22id%22%3A%2200687577dab00e042409ef3c2ab142b9ac0d354214%22%2C%22exportedName%22%3A%22readWordList%22%7D%2C%7B%22id%22%3A%2200df67646c4428234fabb6894ff2b0464267943c2d%22%2C%22exportedName%22%3A%22getValidWordList%22%7D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Frandall%2Fprojects%2Fnyt-games-helper%2Fsrc%2Fapp%2Fwordle%2Fserver.js%22%2C%5B%7B%22id%22%3A%22000ed0d20adc96760ec183c8569d2e64d7e54ecabf%22%2C%22exportedName%22%3A%22getValidWordList%22%7D%2C%7B%22id%22%3A%22007d572258554d0729d3ada71f0ba406b36a090d20%22%2C%22exportedName%22%3A%22readWordList%22%7D%2C%7B%22id%22%3A%2200f4a7202e37df26a27b4ea2b2689b81d8bbdecb32%22%2C%22exportedName%22%3A%22getRandomTargetWord%22%7D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -22,10 +22,10 @@
         "app/wordle/page": "action-browser"
       }
     },
-    "00df67646c4428234fabb6894ff2b0464267943c2d": {
+    "00f4a7202e37df26a27b4ea2b2689b81d8bbdecb32": {
       "workers": {
         "app/wordle/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Frandall%2Fprojects%2Fnyt-games-helper%2Fsrc%2Fapp%2Fwordle%2Fserver.js%22%2C%5B%7B%22id%22%3A%22004b093e624497adda453f43c82ecc16e3650a9dc4%22%2C%22exportedName%22%3A%22getRandomTargetWord%22%7D%2C%7B%22id%22%3A%2200687577dab00e042409ef3c2ab142b9ac0d354214%22%2C%22exportedName%22%3A%22readWordList%22%7D%2C%7B%22id%22%3A%2200df67646c4428234fabb6894ff2b0464267943c2d%22%2C%22exportedName%22%3A%22getValidWordList%22%7D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Frandall%2Fprojects%2Fnyt-games-helper%2Fsrc%2Fapp%2Fwordle%2Fserver.js%22%2C%5B%7B%22id%22%3A%22000ed0d20adc96760ec183c8569d2e64d7e54ecabf%22%2C%22exportedName%22%3A%22getValidWordList%22%7D%2C%7B%22id%22%3A%22007d572258554d0729d3ada71f0ba406b36a090d20%22%2C%22exportedName%22%3A%22readWordList%22%7D%2C%7B%22id%22%3A%2200f4a7202e37df26a27b4ea2b2689b81d8bbdecb32%22%2C%22exportedName%22%3A%22getRandomTargetWord%22%7D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -35,5 +35,5 @@
     }
   },
   "edge": {},
-  "encryptionKey": "imeuuGoLD7YHlAKUZh5Eg+51VKeBh32jccJOJFFC4s4="
+  "encryptionKey": "LJpAvfBqcUZwUIQX04DERUeixM1CUShXyouS733Y2X0="
 }
