@@ -10,7 +10,11 @@ export async function readWordList() {
 }
 
 export async function getRandomTargetWord() {
+    let wordList = await getValidWordList()
+    return wordList[Math.floor(Math.random() * wordList.length)].toUpperCase()
+}
+
+export async function getValidWordList() {
     let wordList = await readWordList()
-    let words = wordList.split("\n")
-    return words[Math.floor(Math.random() * words.length)]
+    return wordList.split("\n")
 }

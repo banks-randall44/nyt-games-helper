@@ -114,10 +114,21 @@ export const gameOver = (condition) => {
     }
 }
 
+export const isValidWord = (word) => {
+    let wordList = globals.wordList
+    if (wordList.includes(word.toLowerCase())) return true;
+    return false
+}
+
 export const enterPressed = () => {
     // Submit the current row
     let word = getWordFromRow(globals.currentRow)
     if (word.length < 5) return
+
+    if (!isValidWord(word)) {
+        window.alert('Invaid Word')
+        return
+    }
 
     let hits = checkWord(word)
     colorHits(globals.currentRow,hits)
@@ -137,4 +148,10 @@ export const deletePressed = () => {
     // Delete the last letter
     let input = getLastFilledInput()
     if (input) input.value = ''
+}
+
+export const charPressed = (text) => {
+    // Add letter to tile input
+    let input = getFirstEmptyInput()
+    if (input) input.value = text
 }

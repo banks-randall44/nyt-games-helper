@@ -6,8 +6,27 @@ import Keyboard from './_components/Keyboard.jsx'
 import style from './style.js'
 import * as app from './app.js'
 import * as server from './server.js'
+import { useEffect } from 'react'
+import globals from './globals.js'
 
 const Page = () => {
+    useEffect(() => {
+        async function updateWordList() {
+            if (!globals.targetWord.length) {
+                globals.wordList = await server.getValidWordList()
+                console.log('wordList:',globals.wordList)
+            }
+        }
+        async function updateTargetWord(wordList) {
+            if (!globals.targetWord.length) {
+                globals.targetWord = await server.getRandomTargetWord(wordList)
+                console.log('targetWord:', globals.targetWord)
+            }
+        }
+
+        updateWordList()
+        updateTargetWord()
+    },[])
     const handleKeyPress = (text) => {
         switch (text) {
             case 'Delete':
@@ -17,9 +36,7 @@ const Page = () => {
                 app.enterPressed()
                 break
             default:
-                // Add letter to tile input
-                let input = app.getFirstEmptyInput()
-                if (input) input.value = text
+                app.charPressed(text)
         }
     }
 

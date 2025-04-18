@@ -1,5 +1,6 @@
 let globals = {
-    targetWord: 'GOOBY',
+    targetWord: '',
+    wordList: [],
     currentRow: 0,
     keyRefs: {},
     tileRefs: []
