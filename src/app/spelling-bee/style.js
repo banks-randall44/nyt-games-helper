@@ -64,9 +64,9 @@ const style = StyleSheet.create({
     },
     listItem: {
         backgroundColor: 'rgb(240, 240, 17)',
-	width: '90%',
-	margin: 'auto',
-	marginBottom: 5
+        width: '90%',
+        margin: 'auto',
+        marginBottom: 5
     },
     listText: {
         color: 'black',
