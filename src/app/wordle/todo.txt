@@ -1,0 +1,2 @@
+Add animations
+All rows except the current should be disabled
