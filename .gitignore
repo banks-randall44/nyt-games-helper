@@ -1,4 +1,4 @@
-/node_modules
-/todo.txt
-/.next
+node_modules
+todo.txt
+.next
 *.swp

@@ -1,4 +1,5 @@
 import globals from './globals.js'
+import words from 'an-array-of-english-words'
 
 export const getFirstEmptyInput = () =>  {
     let row = globals.currentRow
@@ -123,7 +124,8 @@ export const gameOver = (condition) => {
 
 export const isValidWord = (word) => {
     let wordList = globals.wordList
-    if (wordList.includes(word.toLowerCase())) return true;
+    if (wordList.includes(word.toLowerCase())) return true
+    if (words.includes(word.toLowerCase())) return true
     return false
 }
 
