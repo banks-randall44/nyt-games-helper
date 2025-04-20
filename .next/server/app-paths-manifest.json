@@ -1,3 +1,5 @@
 {
-  "/wordle/page": "app/wordle/page.js"
+  "/page": "app/page.js",
+  "/wordle/page": "app/wordle/page.js",
+  "/spelling-bee/page": "app/spelling-bee/page.js"
 }

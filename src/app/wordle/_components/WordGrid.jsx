@@ -9,9 +9,6 @@ const LetterTile = ({ row, col }) => {
 
     globals.tileRefs[row][col] = useRef(null)
 
-    useEffect(() => {
-        console.log('LetterTile useEffect fired')
-    })
     const handleChangeText = (text) => {
         console.log('handleChangeText fired')
         if (text.length) {

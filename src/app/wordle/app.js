@@ -124,8 +124,16 @@ export const gameOver = (condition) => {
 
 export const isValidWord = (word) => {
     let wordList = globals.wordList
+
+    // Check if its the target word
+    if (word == globals.targetWord) return true
+
+    // Check list of target words
     if (wordList.includes(word.toLowerCase())) return true
+
+    // Check npm words repo
     if (words.includes(word.toLowerCase())) return true
+
     return false
 }
 
