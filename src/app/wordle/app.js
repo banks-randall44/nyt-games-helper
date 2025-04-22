@@ -1,3 +1,4 @@
+import { createLocalRequestContext } from 'next/dist/server/after/builtin-request-context.js'
 import globals from './globals.js'
 import words from 'an-array-of-english-words'
 
@@ -34,45 +35,89 @@ export const getWordFromRow = (row) => {
     return word
 }
 
-export const checkWord = (word) => {
+export const getHits = (word,target) => {
+    let directHits = getDirectHits(word,target)
     return {
-        directHits: getDirectHits(word),
-        indirectHits: getIndirectHits(word)
+        directHits: directHits,
+        indirectHits: getIndirectHits(word,target,directHits)
     }
 }
 
-export const getIndirectHits = (word) => {
-    let target = globals.targetWord
+export const getIndirectHits = (word,target,directHits) => {
     let targetSet = new Set(target)
     let hits = []
-    for (let c = 0; c < word.length; c++) {
-        if (!targetSet.has(word[c])) continue;
+    let directHitLetters = [...directHits.letters]
+    let targetRef = globals.targetWord
+    for (let i = 0; i < word.length; i++) {
+        // Letter is not in the target word
+        if (!targetSet.has(word[i])) continue;
 
-        if (word[c] != target[c]) {
-            hits.push(c)
+        if (word[i] != target[i]) {
+            //  Letter is in the word, but not at this position
+            //  There are now 3 scenarios:
+            //      1) Letter is not in directHits
+            //          color letter yellow
+            //      2) Letter is in directHits, but there is at least one more unhit instance
+            //          color letter yellow
+            //          decrement unhit count (remove char from targetRef)
+            //      3) letter is in directHits, and all instances of letter have already been hit
+            //          color letter black (dont mark as hit)
+
+            if (!directHitLetters.includes(word[i])) { // 1
+                hits.push(i)
+            } else {
+                let numCharsTarget = getNumCharsInWord(word[i],targetRef)
+                let numCharsDirectHits = getNumCharsInWord(word[i],directHitLetters.join(""))
+
+                if (numCharsTarget  > numCharsDirectHits) { // 2
+                    hits.push(i)
+                    targetRef = targetRef.replace(word[i],'')
+                } else { // 3
+                    continue
+                }
+            }
         }
     }
 
     return hits
 }
 
-export const getDirectHits = (word) => {
-    let target = globals.targetWord
-    let hits = []
-    for (let c = 0; c < word.length; c++) {
-        if (word[c] == target[c]) {
-            hits.push(c)
+export const getNumCharsInWord = (char,word) => {
+    let count = 0
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] === char) count++
+    }
+
+    return count
+}
+
+export const getDirectHits = (word,target) => {
+    let hitIndicies = []
+    let hitLetters = []
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] == target[i]) {
+            hitIndicies.push(i)
+            hitLetters.push(word[i])
         }
     }
 
-    return hits
+    return {
+        indicies: hitIndicies,
+        letters: hitLetters
+    }
 }
 
 export const colorHits = (row,hits) => {
+    const colors = {
+        miss: "rgb(20,20,20)",
+        hitDirect: "rgb(0,150,0)",
+        hitIndirect: "rgb(200,200,0)"
+    }
     let inputs = globals.tileRefs[row]
     for (let i = 0; i < inputs.length; i++) {
-        if (hits.directHits.includes(i)) {
-            let color = "rgb(0,150,0)"
+        console.log('Checking letter ' + inputs[i].current.value)
+        if (hits.directHits.indicies.includes(i)) {
+            let color = colors.hitDirect
 
             // Color tile
             inputs[i].current.style.backgroundColor = color
@@ -83,7 +128,7 @@ export const colorHits = (row,hits) => {
             key.style.backgroundColor = color
         }
         else if (hits.indirectHits.includes(i)) {
-            let color = "rgb(200,200,0)"
+            let color = colors.hitIndirect
 
             // Color tile
             inputs[i].current.style.backgroundColor = color
@@ -93,17 +138,45 @@ export const colorHits = (row,hits) => {
             let key = globals.keyRefs[char].current
             key.style.backgroundColor = color
         } else {
-            let color = "rgb(20,20,20)"
-
+            let color = colors.miss
+            
             // Color tile
             inputs[i].current.style.backgroundColor = color
 
             // Color key
             let char = inputs[i].current.value
             let key = globals.keyRefs[char].current
+
+            // Dont override hits
+            let currentColor = key.style.backgroundColor
+            let currentRGB = getRGBFromStr(currentColor)
+            let dHitRGB = getRGBFromStr(colors['hitDirect'])
+            let iHitRGB = getRGBFromStr(colors['hitIndirect'])
+            if (arraysEqual(currentRGB, dHitRGB) || arraysEqual(currentRGB, iHitRGB)) {
+                console.log('Colored key detected')
+                continue
+            }
+
             key.style.backgroundColor = color
         }
     }
+}
+
+export const arraysEqual = (a, b) => {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length !== b.length) return false;
+
+  for (var i = 0; i < a.length; ++i) {
+    if (a[i] !== b[i]) return false;
+  }
+  return true;
+}
+
+export const getRGBFromStr = (rgbStr) => {
+    return rgbStr.substring(4, rgbStr.length-1)
+         .replace(/ /g, '')
+         .split(',');
 }
 
 export const gameOver = (condition) => {
@@ -147,7 +220,7 @@ export const enterPressed = () => {
         return
     }
 
-    let hits = checkWord(word)
+    let hits = getHits(word,globals.targetWord)
     colorHits(globals.currentRow,hits)
     if (hits.directHits.length == 5) {
         gameOver('win')
