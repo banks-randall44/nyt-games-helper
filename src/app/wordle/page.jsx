@@ -37,7 +37,7 @@ const Page = () => {
                 break
             case 'Enter':
                 app.enterPressed()
-                //setWordsRemaining(app.calculateWordsRemaining())
+                setWordsRemaining(app.calculateWordsRemaining())
                 break
             default:
                 app.charPressed(text)
@@ -48,9 +48,7 @@ const Page = () => {
         <View style={style.container}>
             <Text style={style.headerText}>Wordle</Text>
             <WordGrid />
-            {/* Remove this until its functional
             {wordsRemaining && <Text style={style.wordsRemaining}>Words remaining: {wordsRemaining}</Text>}
-            */}
             <Keyboard 
                 onKeyPress={handleKeyPress}
             />

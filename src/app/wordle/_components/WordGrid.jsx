@@ -10,7 +10,6 @@ const LetterTile = ({ row, col }) => {
 
     globals.tileRefs[row][col] = useRef(null)
 
-    // Fires when the user uses their own keyboard
     const handleChangeText = (text) => {
         if (text.length) {
             // Text added. Focus next cell

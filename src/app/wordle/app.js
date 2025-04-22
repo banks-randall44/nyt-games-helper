@@ -280,5 +280,12 @@ export const deletePressed = () => {
 export const charPressed = (text) => {
     // Add letter to tile input
     let input = getFirstEmptyInput()
-    if (input) input.value = text
+    //if (input) input.value = text
+
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(
+        window.HTMLInputElement.prototype,
+        'value').set;
+    nativeInputValueSetter.call(input, text);
+    const event = new Event('input', { bubbles: true });
+    input.dispatchEvent(event);
 }
