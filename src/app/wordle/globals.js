@@ -2,6 +2,9 @@ let globals = {
     targetWord: '',
     wordList: [],
     currentRow: 0,
+    directHits: new Set(),
+    indirectHits: new Set(),
+    misses: new Set(),
     keyRefs: {},
     tileRefs: []
 }

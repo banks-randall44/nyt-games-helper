@@ -6,13 +6,18 @@ import Keyboard from './_components/Keyboard.jsx'
 import style from './style.js'
 import * as app from './app.js'
 import * as server from './server.js'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import globals from './globals.js'
 
 const Page = () => {
+    const [wordsRemaining, setWordsRemaining] = useState(0)
+
+    // Fires once on page load
     useEffect(() => {
         async function updateWordList() {
             globals.wordList = await server.getValidWordList()
+            let numValidWords = globals.wordList.length
+            setWordsRemaining(numValidWords)
         }
         async function updateTargetWord(wordList) {
             if (!globals.targetWord.length) {
@@ -24,6 +29,7 @@ const Page = () => {
         updateWordList()
         updateTargetWord()
     },[])
+
     const handleKeyPress = (text) => {
         switch (text) {
             case 'Delete':
@@ -31,6 +37,7 @@ const Page = () => {
                 break
             case 'Enter':
                 app.enterPressed()
+                //setWordsRemaining(app.calculateWordsRemaining())
                 break
             default:
                 app.charPressed(text)
@@ -41,6 +48,9 @@ const Page = () => {
         <View style={style.container}>
             <Text style={style.headerText}>Wordle</Text>
             <WordGrid />
+            {/* Remove this until its functional
+            {wordsRemaining && <Text style={style.wordsRemaining}>Words remaining: {wordsRemaining}</Text>}
+            */}
             <Keyboard 
                 onKeyPress={handleKeyPress}
             />

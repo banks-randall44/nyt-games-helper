@@ -13,12 +13,18 @@ const style = StyleSheet.create({
         textAlign: 'center',
         color: 'white'
     },
+    wordsRemaining: {
+        color: 'white',
+        marginTop: '5px',
+        fontStyle: 'italic',
+        fontSize: 24
+    },
     gridContainer: {
     },
     keyboardContainer: {
         flex: 1,
         justifyContent: 'center',
-        marginTop: 50,
+        marginTop: 40,
         width: 'calc(100% - 10px)',
         maxWidth: 600,
         maxHeight: '30vh',

@@ -2,6 +2,7 @@ import { View, Text, TextInput } from 'react-native-web'
 import { useState, useRef, useEffect } from 'react'
 import style from '../style.js'
 import globals from '../globals.js'
+import * as app from '../app.js'
 
 // Tile Component
 const LetterTile = ({ row, col }) => {
@@ -9,8 +10,8 @@ const LetterTile = ({ row, col }) => {
 
     globals.tileRefs[row][col] = useRef(null)
 
+    // Fires when the user uses their own keyboard
     const handleChangeText = (text) => {
-        console.log('handleChangeText fired')
         if (text.length) {
             // Text added. Focus next cell
             if (col < 4) {
@@ -36,6 +37,10 @@ const LetterTile = ({ row, col }) => {
                 const target = globals.tileRefs[row][col-1]
                 target.current.focus()
             }
+        }
+
+        if (key.code == 'Enter') {
+            app.enterPressed()
         }
     }
 

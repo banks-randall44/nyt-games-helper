@@ -1,6 +1,7 @@
 import { createLocalRequestContext } from 'next/dist/server/after/builtin-request-context.js'
 import globals from './globals.js'
 import words from 'an-array-of-english-words'
+import { collectMotionValues } from 'motion'
 
 export const getFirstEmptyInput = () =>  {
     let row = globals.currentRow
@@ -65,6 +66,7 @@ export const getIndirectHits = (word,target,directHits) => {
 
             if (!directHitLetters.includes(word[i])) { // 1
                 hits.push(i)
+                globals.indirectHits.add(word[i])
             } else {
                 let numCharsTarget = getNumCharsInWord(word[i],targetRef)
                 let numCharsDirectHits = getNumCharsInWord(word[i],directHitLetters.join(""))
@@ -72,6 +74,7 @@ export const getIndirectHits = (word,target,directHits) => {
                 if (numCharsTarget  > numCharsDirectHits) { // 2
                     hits.push(i)
                     targetRef = targetRef.replace(word[i],'')
+                    globals.indirectHits.add(word[i])
                 } else { // 3
                     continue
                 }
@@ -80,15 +83,6 @@ export const getIndirectHits = (word,target,directHits) => {
     }
 
     return hits
-}
-
-export const getNumCharsInWord = (char,word) => {
-    let count = 0
-    for (let i = 0; i < word.length; i++) {
-        if (word[i] === char) count++
-    }
-
-    return count
 }
 
 export const getDirectHits = (word,target) => {
@@ -105,6 +99,39 @@ export const getDirectHits = (word,target) => {
         indicies: hitIndicies,
         letters: hitLetters
     }
+}
+
+export const getNumCharsInWord = (char,word) => {
+    let count = 0
+    for (let i = 0; i < word.length; i++) {
+        if (word[i] === char) count++
+    }
+
+    return count
+}
+
+export const calculateWordsRemaining = () => {
+    let words = [...globals.wordList]
+    let remaining = words.length
+    let guesses = []
+    for (let row = 0; row < globals.currentRow; row++) {
+        guesses.push(getWordFromRow(row))
+    }
+    console.log('guesses: ',guesses)
+
+    // remove all entries from 'words' that are no longer possible
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i].toUpperCase()
+        let wordSet = new Set(word)
+
+        // If word contains any letters that are marked as miss, it cant be valid
+        let numLettersShared = globals.misses.intersection(wordSet).size
+        if (numLettersShared) {
+            remaining--
+        }
+    }
+
+    return remaining
 }
 
 export const colorHits = (row,hits) => {
@@ -126,6 +153,8 @@ export const colorHits = (row,hits) => {
             let char = inputs[i].current.value
             let key = globals.keyRefs[char].current
             key.style.backgroundColor = color
+            
+            globals.directHits.add(char)
         }
         else if (hits.indirectHits.includes(i)) {
             let color = colors.hitIndirect
@@ -137,6 +166,8 @@ export const colorHits = (row,hits) => {
             let char = inputs[i].current.value
             let key = globals.keyRefs[char].current
             key.style.backgroundColor = color
+            
+            globals.indirectHits.add(char)
         } else {
             let color = colors.miss
             
@@ -158,6 +189,8 @@ export const colorHits = (row,hits) => {
             }
 
             key.style.backgroundColor = color
+
+            globals.misses.add(char)
         }
     }
 }
@@ -220,13 +253,17 @@ export const enterPressed = () => {
         return
     }
 
+    // Color tiles and keyboard keys
     let hits = getHits(word,globals.targetWord)
     colorHits(globals.currentRow,hits)
+
+    // Check if won
     if (hits.directHits.indicies.length == 5) {
         gameOver('win')
         return
     }
 
+    // Check if lost
     globals.currentRow++
     if (globals.currentRow == 6) {
         gameOver('loss')
