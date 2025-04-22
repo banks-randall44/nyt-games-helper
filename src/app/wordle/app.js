@@ -222,7 +222,7 @@ export const enterPressed = () => {
 
     let hits = getHits(word,globals.targetWord)
     colorHits(globals.currentRow,hits)
-    if (hits.directHits.length == 5) {
+    if (hits.directHits.indicies.length == 5) {
         gameOver('win')
         return
     }

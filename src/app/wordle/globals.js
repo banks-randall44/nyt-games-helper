@@ -1,5 +1,5 @@
 let globals = {
-    targetWord: 'MUNCH',
+    targetWord: '',
     wordList: [],
     currentRow: 0,
     keyRefs: {},
