@@ -11,19 +11,20 @@ const LetterTile = ({ row, col }) => {
     globals.tileRefs[row][col] = useRef(null)
 
     const handleChangeText = (text) => {
-        if (text.length) {
-            // Text added. Focus next cell
-            if (col < 4) {
-                const target = globals.tileRefs[row][col+1]
-                target.current.focus()
-            }
-        } else {
-            // Text removed. Focus previous cell
-            if (col > 0) {
-                const target = globals.tileRefs[row][col-1]
-                target.current.focus()
-            }
-        }
+        // Unsure if I want to keep this logic. Probably not
+        //if (text.length) {
+        //    // Text added. Focus next cell
+        //    if (col < 4) {
+        //        const target = globals.tileRefs[row][col+1]
+        //        target.current.focus()
+        //    }
+        //} else {
+        //    // Text removed. Focus previous cell
+        //    if (col > 0) {
+        //        const target = globals.tileRefs[row][col-1]
+        //        target.current.focus()
+        //    }
+        //}
 
         setValue(text)
     }

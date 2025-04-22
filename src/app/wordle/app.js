@@ -3,6 +3,15 @@ import globals from './globals.js'
 import words from 'an-array-of-english-words'
 import { collectMotionValues } from 'motion'
 
+export const getAllFiveLetterWordsFromModule = () => {
+    let fiveLetterWords = []
+    for (let i = 0; i < words.length; i++) {
+        if (words[i].length == 5) fiveLetterWords.push(words[i])
+    }
+
+    return fiveLetterWords
+}
+
 export const getFirstEmptyInput = () =>  {
     let row = globals.currentRow
     for (let col = 0; col < globals.tileRefs[row].length; col++) {
@@ -38,15 +47,35 @@ export const getWordFromRow = (row) => {
 
 export const getHits = (word,target) => {
     let directHits = getDirectHits(word,target)
+    let indirectHits = getIndirectHits(word,target,directHits);
     return {
-        directHits: directHits,
-        indirectHits: getIndirectHits(word,target,directHits)
+        direct: directHits,
+        indirect: indirectHits
+    }
+}
+
+export const getMisses = (word,hits) => {
+    let dhIndicies = hits.direct.indicies
+    let ihIndicies = hits.indirect.indicies
+    let missedIndicies = []
+    let missedLetters = []
+    for (let i = 0; i < 5; i++) {
+        if (!dhIndicies.includes(i) && !ihIndicies.includes(i)) {
+            missedIndicies.push(i)
+            missedLetters.push(word[i])
+        }
+    }
+
+    return {
+        indicies: missedIndicies,
+        letters: missedLetters
     }
 }
 
 export const getIndirectHits = (word,target,directHits) => {
     let targetSet = new Set(target)
-    let hits = []
+    let hitIndicies = []
+    let hitLetters = []
     let directHitLetters = [...directHits.letters]
     let targetRef = globals.targetWord
     for (let i = 0; i < word.length; i++) {
@@ -55,34 +84,47 @@ export const getIndirectHits = (word,target,directHits) => {
 
         if (word[i] != target[i]) {
             //  Letter is in the word, but not at this position
-            //  There are now 3 scenarios:
-            //      1) Letter is not in directHits
-            //          color letter yellow
-            //      2) Letter is in directHits, but there is at least one more unhit instance
-            //          color letter yellow
-            //          decrement unhit count (remove char from targetRef)
-            //      3) letter is in directHits, and all instances of letter have already been hit
-            //          color letter black (dont mark as hit)
+            //    
+            //  if directHits includes letter:
+            //      if numLetter in Target > numLetter in directHits:
+            //          if numLetter in indirectHits <= numLetter in directHits:
+            //              add to indirect
+            //
+            //
+            //
 
-            if (!directHitLetters.includes(word[i])) { // 1
-                hits.push(i)
-                globals.indirectHits.add(word[i])
+            let numCharsTarget = getNumCharsInWord(word[i],targetRef)
+            let numCharsDirectHits = getNumCharsInWord(word[i],directHitLetters.join(""))
+            let numCharsIndirectHits = getNumCharsInWord(word[i],hitLetters.join(""))
+            
+            if (!directHitLetters.includes(word[i])) { 
+                // Letter is in word but not been directly hit yet
+                if (numCharsIndirectHits <= numCharsDirectHits) {
+                    hitIndicies.push(i)
+                    hitLetters.push(word[i])    
+                }
             } else {
-                let numCharsTarget = getNumCharsInWord(word[i],targetRef)
-                let numCharsDirectHits = getNumCharsInWord(word[i],directHitLetters.join(""))
 
-                if (numCharsTarget  > numCharsDirectHits) { // 2
-                    hits.push(i)
-                    targetRef = targetRef.replace(word[i],'')
-                    globals.indirectHits.add(word[i])
-                } else { // 3
+                // If there are more instances of this letter in the target word than
+                // have been directly hit so far, then mark it yellow (see (2) above)
+                if (numCharsTarget > numCharsDirectHits) { 
+                    if (numCharsIndirectHits <= numCharsDirectHits) {
+                        hitIndicies.push(i)
+                        hitLetters.push(word[i])    
+                        targetRef = targetRef.replace(word[i],'')
+                        globals.indirectHits.add(word[i])
+                    }
+                } else { 
                     continue
                 }
             }
         }
     }
 
-    return hits
+    return {
+        indicies: hitIndicies,
+        letters: hitLetters
+    }
 }
 
 export const getDirectHits = (word,target) => {
@@ -110,28 +152,64 @@ export const getNumCharsInWord = (char,word) => {
     return count
 }
 
+// TODO: This fails to discount words that cant be possible due to 
+// a missed letter in a different position than the one being checked
 export const calculateWordsRemaining = () => {
     let words = [...globals.wordList]
-    let remaining = words.length
-    let guesses = []
     for (let row = 0; row < globals.currentRow; row++) {
-        guesses.push(getWordFromRow(row))
-    }
-    console.log('guesses: ',guesses)
+        let guess = getWordFromRow(row)
+        let hits = getHits(guess,globals.targetWord)
+        let directHitIndicies = hits.direct.indicies
+        let indirectHitIndicies = hits.indirect.indicies
+        let missedIndicies = getMisses(guess,hits).indicies
 
-    // remove all entries from 'words' that are no longer possible
-    for (let i = 0; i < words.length; i++) {
-        let word = words[i].toUpperCase()
-        let wordSet = new Set(word)
+        // If all letters are hit, there's 0 words remaining
+        if (directHitIndicies.length == 5) return []
 
-        // If word contains any letters that are marked as miss, it cant be valid
-        let numLettersShared = globals.misses.intersection(wordSet).size
-        if (numLettersShared) {
-            remaining--
+        // Remove all words that can no longer be valid
+        for (let i = words.length - 1; i >= 0; i--) {
+            let word = words[i].toUpperCase()
+            //console.log('Checking word: ' + word)
+            let wordSet = new Set(word)
+
+            // If this word doesn't contain all of the indirect hits,
+            // it can't be a match
+            if (!globals.indirectHits.isSubsetOf(wordSet)) {
+                words.splice(i,1)
+                continue
+            }
+
+            for (let j = 0; j < word.length; j++) {
+
+                // If we have a direct hit at this idx and it doesnt match,
+                // this word cannot be valid
+                if (directHitIndicies.includes(j) && (word[j] != guess[j])) {
+                    //console.log(word+' cannot be valid due to direct hit at idx '+j)
+                    words.splice(i,1)
+                    break
+                }
+
+                // If we have an indirect hit at this index and it does match,
+                // this word cannot be valid
+                if (indirectHitIndicies.includes(j) && (word[j] === guess[j])) {
+                    //console.log(word+' cannot be valid due to indirect hit at idx '+j)
+                    words.splice(i,1)
+                    break
+                }
+
+                // If we have an miss at this index and it does match,
+                // this word cannot be valid
+                if (missedIndicies.includes(j) && (word[j] === guess[j])) {
+                    //console.log(word+' cannot be valid due to miss at idx '+j)
+                    words.splice(i,1)
+                    break
+                }
+            }
         }
     }
 
-    return remaining
+    console.log('words remaining: ',words)
+    return words
 }
 
 export const colorHits = (row,hits) => {
@@ -142,8 +220,7 @@ export const colorHits = (row,hits) => {
     }
     let inputs = globals.tileRefs[row]
     for (let i = 0; i < inputs.length; i++) {
-        console.log('Checking letter ' + inputs[i].current.value)
-        if (hits.directHits.indicies.includes(i)) {
+        if (hits.direct.indicies.includes(i)) {
             let color = colors.hitDirect
 
             // Color tile
@@ -156,7 +233,7 @@ export const colorHits = (row,hits) => {
             
             globals.directHits.add(char)
         }
-        else if (hits.indirectHits.includes(i)) {
+        else if (hits.indirect.indicies.includes(i)) {
             let color = colors.hitIndirect
 
             // Color tile
@@ -255,10 +332,11 @@ export const enterPressed = () => {
 
     // Color tiles and keyboard keys
     let hits = getHits(word,globals.targetWord)
+    console.log('hits:',hits)
     colorHits(globals.currentRow,hits)
 
     // Check if won
-    if (hits.directHits.indicies.length == 5) {
+    if (hits.direct.indicies.length == 5) {
         gameOver('win')
         return
     }

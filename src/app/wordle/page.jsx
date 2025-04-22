@@ -15,7 +15,8 @@ const Page = () => {
     // Fires once on page load
     useEffect(() => {
         async function updateWordList() {
-            globals.wordList = await server.getValidWordList()
+            //globals.wordList = await server.getValidWordList()
+            globals.wordList = app.getAllFiveLetterWordsFromModule()
             let numValidWords = globals.wordList.length
             setWordsRemaining(numValidWords)
         }
@@ -37,7 +38,7 @@ const Page = () => {
                 break
             case 'Enter':
                 app.enterPressed()
-                setWordsRemaining(app.calculateWordsRemaining())
+                setWordsRemaining(app.calculateWordsRemaining().length)
                 break
             default:
                 app.charPressed(text)
@@ -48,7 +49,7 @@ const Page = () => {
         <View style={style.container}>
             <Text style={style.headerText}>Wordle</Text>
             <WordGrid />
-            {wordsRemaining && <Text style={style.wordsRemaining}>Words remaining: {wordsRemaining}</Text>}
+            <Text style={style.wordsRemaining}>Words remaining: {wordsRemaining}</Text>
             <Keyboard 
                 onKeyPress={handleKeyPress}
             />
