@@ -1,7 +1,4 @@
+Build unit tests
 Add animations
 All rows except the current should be disabled
-If a letter is an indirect hit but only occurs once in a word, another instance of
-    that letter in a guess should not also turn yellow
-    e.g. target = CLUED, guess = CEASE  -> Only the first 'E' in CEASE should be yellow
-Finish 'Words Remaining' algorithm
 

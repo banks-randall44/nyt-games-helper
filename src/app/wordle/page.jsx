@@ -1,6 +1,6 @@
 "use client"
 
-import { View, Text, TextInput } from 'react-native-web'
+import { View, Text } from 'react-native-web'
 import WordGrid from './_components/WordGrid.jsx'
 import Keyboard from './_components/Keyboard.jsx'
 import style from './style.js'
@@ -20,7 +20,7 @@ const Page = () => {
             let numValidWords = globals.wordList.length
             setWordsRemaining(numValidWords)
         }
-        async function updateTargetWord(wordList) {
+        async function updateTargetWord() {
             if (!globals.targetWord.length) {
                 globals.targetWord = await server.getRandomTargetWord(wordList)
                 console.log('targetWord:', globals.targetWord)

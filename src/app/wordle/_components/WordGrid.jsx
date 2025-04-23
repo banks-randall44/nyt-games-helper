@@ -1,5 +1,5 @@
-import { View, Text, TextInput } from 'react-native-web'
-import { useState, useRef, useEffect } from 'react'
+import { View, TextInput } from 'react-native-web'
+import { useState, useRef } from 'react'
 import style from '../style.js'
 import globals from '../globals.js'
 import * as app from '../app.js'

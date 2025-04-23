@@ -1,7 +1,5 @@
-import { createLocalRequestContext } from 'next/dist/server/after/builtin-request-context.js'
 import globals from './globals.js'
 import words from 'an-array-of-english-words'
-import { collectMotionValues } from 'motion'
 
 export const getAllFiveLetterWordsFromModule = () => {
     let fiveLetterWords = []
