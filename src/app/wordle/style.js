@@ -24,7 +24,7 @@ const style = StyleSheet.create({
     keyboardContainer: {
         flex: 1,
         justifyContent: 'center',
-        marginTop: 40,
+        marginTop: 20,
         width: 'calc(100% - 10px)',
         maxWidth: 600,
         maxHeight: '30vh',

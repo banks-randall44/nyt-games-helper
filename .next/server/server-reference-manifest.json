@@ -32,17 +32,6 @@
       "layer": {
         "app/wordle/page": "action-browser"
       }
-    },
-    "000f850fa9e02220f2deedba2d0ab713f4afad6131": {
-      "workers": {
-        "app/spelling-bee/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2Fhome%2Frandall%2Fprojects%2Fnyt-games-helper%2Fsrc%2Fapp%2Fspelling-bee%2Fserver.js%22%2C%5B%7B%22id%22%3A%22000f850fa9e02220f2deedba2d0ab713f4afad6131%22%2C%22exportedName%22%3A%22readWordList%22%7D%5D%5D%5D&__client_imported__=true!",
-          "async": false
-        }
-      },
-      "layer": {
-        "app/spelling-bee/page": "action-browser"
-      }
     }
   },
   "edge": {},

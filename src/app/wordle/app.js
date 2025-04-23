@@ -159,12 +159,10 @@ export const calculateWordsRemaining = () => {
     for (let row = 0; row < globals.currentRow; row++) {
         let guess = getWordFromRow(row)
         let hits = getHits(guess,globals.targetWord)
-        let directHitIndicies = hits.direct.indicies
-        let indirectHitIndicies = hits.indirect.indicies
-        let missedIndicies = getMisses(guess,hits).indicies
+        let misses = getMisses(guess,hits)
 
         // If all letters are hit, there's 0 words remaining
-        if (directHitIndicies.length == 5) return []
+        if (hits.direct.indicies.length == 5) return []
 
         // Remove all words that can no longer be valid
         for (let i = words.length - 1; i >= 0; i--) {
@@ -181,28 +179,38 @@ export const calculateWordsRemaining = () => {
 
             for (let j = 0; j < word.length; j++) {
 
-                // If we have a direct hit at this idx and it doesnt match,
+                // If guess has a direct hit at this idx and it doesnt match,
                 // this word cannot be valid
-                if (directHitIndicies.includes(j) && (word[j] != guess[j])) {
+                if (hits.direct.indicies.includes(j) && (word[j] != guess[j])) {
                     //console.log(word+' cannot be valid due to direct hit at idx '+j)
                     words.splice(i,1)
                     break
                 }
 
-                // If we have an indirect hit at this index and it does match,
+                // If guess has an indirect hit at this index and it does match,
                 // this word cannot be valid
-                if (indirectHitIndicies.includes(j) && (word[j] === guess[j])) {
+                if (hits.indirect.indicies.includes(j) && (word[j] === guess[j])) {
                     //console.log(word+' cannot be valid due to indirect hit at idx '+j)
                     words.splice(i,1)
                     break
                 }
 
-                // If we have an miss at this index and it does match,
+                // If guess has an miss at this index and it does match,
                 // this word cannot be valid
-                if (missedIndicies.includes(j) && (word[j] === guess[j])) {
+                if (misses.indicies.includes(j) && (word[j] === guess[j])) {
                     //console.log(word+' cannot be valid due to miss at idx '+j)
                     words.splice(i,1)
                     break
+                }
+
+                // If this word has a letter at this index that is a miss at any index
+                // in guess and if that letter is not in any of the hits, it cant be valid
+                if (misses.letters.includes(word[j])) {
+                    if (!hits.indirect.letters.includes(word[j]) 
+                        && !hits.direct.letters.includes(word[j])) {
+                        words.splice(i,1)
+                        break
+                    }
                 }
             }
         }
