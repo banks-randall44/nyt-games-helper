@@ -11,34 +11,10 @@ const LetterTile = ({ row, col }) => {
     globals.tileRefs[row][col] = useRef(null)
 
     const handleChangeText = (text) => {
-        // Unsure if I want to keep this logic. Probably not
-        //if (text.length) {
-        //    // Text added. Focus next cell
-        //    if (col < 4) {
-        //        const target = globals.tileRefs[row][col+1]
-        //        target.current.focus()
-        //    }
-        //} else {
-        //    // Text removed. Focus previous cell
-        //    if (col > 0) {
-        //        const target = globals.tileRefs[row][col-1]
-        //        target.current.focus()
-        //    }
-        //}
-
         setValue(text)
     }
 
     const handleKeyPress = (key) => {
-        if (key.code == 'Backspace') {
-            // If current tile is already empty, move back
-            let value = globals.tileRefs[row][col].current.value
-            if (!value.length && col > 0) {
-                const target = globals.tileRefs[row][col-1]
-                target.current.focus()
-            }
-        }
-
         if (key.code == 'Enter') {
             app.enterPressed()
         }

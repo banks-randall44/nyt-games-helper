@@ -82,28 +82,20 @@ export const getIndirectHits = (word,target,directHits) => {
         // Letter is not in the target word
         if (!targetSet.has(word[i])) continue;
 
+        //  Letter is in the word, but not at this position
         if (word[i] != target[i]) {
-            //  Letter is in the word, but not at this position
-            //    
-            //  if directHits includes letter:
-            //      if numLetter in Target > numLetter in directHits:
-            //          if numLetter in indirectHits <= numLetter in directHits:
-            //              add to indirect
-            //
-            //
-            //
 
             let numCharsTarget = getNumCharsInWord(word[i],targetRef)
             let numCharsDirectHits = getNumCharsInWord(word[i],directHitLetters.join(""))
             let numCharsIndirectHits = getNumCharsInWord(word[i],hitLetters.join(""))
             
+            // Letter is in word but not been directly hit yet
             if (!directHitLetters.includes(word[i])) { 
-                // Letter is in word but not been directly hit yet
                 if (numCharsIndirectHits <= numCharsDirectHits) {
                     hitIndicies.push(i)
                     hitLetters.push(word[i])    
                 }
-            } else {
+            } else { // Letter is in the word and has not been directly hit
 
                 // If there are more instances of this letter in the target word than
                 // have been directly hit so far, then mark it yellow (see (2) above)
@@ -114,8 +106,6 @@ export const getIndirectHits = (word,target,directHits) => {
                         targetRef = targetRef.replace(word[i],'')
                         globals.indirectHits.add(word[i])
                     }
-                } else { 
-                    continue
                 }
             }
         }
@@ -152,8 +142,6 @@ export const getNumCharsInWord = (char,word) => {
     return count
 }
 
-// TODO: This fails to discount words that cant be possible due to 
-// a missed letter in a different position than the one being checked
 export const calculateWordsRemaining = () => {
     let words = [...globals.wordList]
     for (let row = 0; row < globals.currentRow; row++) {

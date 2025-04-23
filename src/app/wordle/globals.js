@@ -1,5 +1,5 @@
 let globals = {
-    targetWord: 'ROACH',
+    targetWord: '',
     wordList: [],
     currentRow: 0,
     directHits: new Set(),
