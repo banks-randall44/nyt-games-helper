@@ -22,7 +22,7 @@ const Page = () => {
         }
         async function updateTargetWord() {
             if (!globals.targetWord.length) {
-                globals.targetWord = await server.getRandomTargetWord(wordList)
+                globals.targetWord = await server.getRandomTargetWord()
                 console.log('targetWord:', globals.targetWord)
             }
         }

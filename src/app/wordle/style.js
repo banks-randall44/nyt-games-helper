@@ -1,3 +1,5 @@
+import { StyleSheet } from 'react-native-web'
+
 const style = StyleSheet.create({
     container: {
         flex: 1,
