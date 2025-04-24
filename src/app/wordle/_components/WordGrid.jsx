@@ -7,7 +7,7 @@ import { motion } from "motion/react"
 // Tile Component
 const LetterTile = ({ row, col }) => {
     let [value, setValue] = useState('')
-    let [rotation, setRotation] = useState(360)
+    let [rotation, setRotation] = useState(0)
 
     globals.tileRefs[row][col] = useRef(null)
 

@@ -40,6 +40,10 @@ const Page = () => {
 
     // Physical keyboard keypress handler
     const handlePhysicalKeyPress = (key) => {
+        const isLetterString = (str) => {
+            return /^[a-zA-Z]+$/.test(str);   
+        }
+
         switch (key.code) {
             case 'Enter':
                 app.enterPressed()
@@ -52,10 +56,6 @@ const Page = () => {
                 if (key.key.length == 1 && isLetterString(key.key))
                     app.charPressed(key.key.toUpperCase())
         }
-    }
-
-    const isLetterString = (str) => {
-        return /^[a-zA-Z]+$/.test(str);   
     }
 
     // Virtual keyboard keypress handler
