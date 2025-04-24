@@ -3,10 +3,12 @@ import { useState, useRef } from 'react'
 import style from '../style.js'
 import globals from '../globals.js'
 import * as app from '../app.js'
+import { motion } from "motion/react"
 
 // Tile Component
 const LetterTile = ({ row, col }) => {
     let [value, setValue] = useState('')
+    let [rotation, setRotation] = useState(0)
 
     globals.tileRefs[row][col] = useRef(null)
 
@@ -14,23 +16,18 @@ const LetterTile = ({ row, col }) => {
         setValue(text)
     }
 
-    const handleKeyPress = (key) => {
-        if (key.code == 'Enter') {
-            app.enterPressed()
-        }
-    }
-
     return (
-        <View style={style.letterTile}>
+        <motion.div 
+            style={style.letterTile} 
+            animate={{ rotate: rotation }}>
             <TextInput
                 ref={globals.tileRefs[row][col]}
                 style={style.letterInput}
                 maxLength={1}
                 value={value.toUpperCase()}
                 onChangeText={handleChangeText}
-                onKeyPress={handleKeyPress}
             />
-        </View>
+        </motion.div>
     )
 }
 

@@ -15,13 +15,18 @@ const Page = () => {
     // Fires once on page load
     useEffect(() => {
         async function updateWordList() {
+            // List of official wordle answers
             //globals.wordList = await server.getValidWordList()
+
+            // NPM Repo contains all of the official wordle words + a lot more
             globals.wordList = app.getAllFiveLetterWordsFromModule()
+
             let numValidWords = globals.wordList.length
             setWordsRemaining(numValidWords)
         }
         async function updateTargetWord() {
             if (!globals.targetWord.length) {
+                // Answers only come from official list of wordle answers
                 globals.targetWord = await server.getRandomTargetWord()
                 console.log('targetWord:', globals.targetWord)
             }
@@ -29,9 +34,27 @@ const Page = () => {
 
         updateWordList()
         updateTargetWord()
+
+        document.addEventListener('keydown',handlePhysicalKeyPress)
     },[])
 
-    const handleKeyPress = (text) => {
+    // Physical keyboard keypress handler
+    const handlePhysicalKeyPress = (key) => {
+        switch (key.code) {
+            case 'Enter':
+                app.enterPressed()
+                break;
+            case 'Backspace':
+                app.deletePressed()
+                break;
+            default:
+                app.charPressed(key.key.toUpperCase())
+        }
+    }
+
+
+    // Virtual keyboard keypress handler
+    const handleVirtualKeyPress = (text) => {
         switch (text) {
             case 'Delete':
                 app.deletePressed()
@@ -49,9 +72,11 @@ const Page = () => {
         <View style={style.container}>
             <Text style={style.headerText}>Wordle</Text>
             <WordGrid />
-            <Text style={style.wordsRemaining}>Words remaining: {wordsRemaining}</Text>
+            <Text style={style.wordsRemaining}>
+                Possible words remaining: {wordsRemaining}
+            </Text>
             <Keyboard 
-                onKeyPress={handleKeyPress}
+                onKeyPress={handleVirtualKeyPress}
             />
         </View>
     )
