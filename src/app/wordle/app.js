@@ -140,6 +140,19 @@ export const getNumCharsInWord = (char,word) => {
     return count
 }
 
+export const wordContainsLetters = (word,letters) => {
+    for (let i = 0; i < letters.length; i++) {
+        let letter = letters[i]
+        if (word.includes(letter)) {
+            word = word.replace(letter,"")
+        } else {
+            return false
+        }
+    }
+
+    return true
+}
+
 export const calculateWordsRemaining = () => {
     let words = [...globals.wordList]
     for (let row = 0; row < globals.currentRow; row++) {
@@ -153,18 +166,16 @@ export const calculateWordsRemaining = () => {
         // Remove all words that can no longer be valid
         for (let i = words.length - 1; i >= 0; i--) {
             let word = words[i].toUpperCase()
-            //console.log('Checking word: ' + word)
-            let wordSet = new Set(word)
 
-            // If this word doesn't contain all of the indirect hits,
-            // it can't be a match
-            if (!globals.indirectHits.isSubsetOf(wordSet)) {
+            // If this word doesn't contain all of the hits, it can't be a match
+            let allHits = []
+            allHits = allHits.concat(hits.direct.letters,hits.indirect.letters)            
+            if (!wordContainsLetters(word,allHits)) { 
                 words.splice(i,1)
                 continue
             }
 
             for (let j = 0; j < word.length; j++) {
-
                 // If guess has a direct hit at this idx and it doesnt match,
                 // this word cannot be valid
                 if (hits.direct.indicies.includes(j) && (word[j] != guess[j])) {
