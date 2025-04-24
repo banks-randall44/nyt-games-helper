@@ -43,25 +43,30 @@ const Page = () => {
         switch (key.code) {
             case 'Enter':
                 app.enterPressed()
+                setWordsRemaining(app.calculateWordsRemaining().length)
                 break;
             case 'Backspace':
                 app.deletePressed()
                 break;
             default:
-                app.charPressed(key.key.toUpperCase())
+                if (key.key.length == 1 && isLetterString(key.key))
+                    app.charPressed(key.key.toUpperCase())
         }
     }
 
+    const isLetterString = (str) => {
+        return /^[a-zA-Z]+$/.test(str);   
+    }
 
     // Virtual keyboard keypress handler
     const handleVirtualKeyPress = (text) => {
         switch (text) {
-            case 'Delete':
-                app.deletePressed()
-                break
             case 'Enter':
                 app.enterPressed()
                 setWordsRemaining(app.calculateWordsRemaining().length)
+                break
+            case 'Delete':
+                app.deletePressed()
                 break
             default:
                 app.charPressed(text)

@@ -2,13 +2,12 @@ import { View, TextInput } from 'react-native-web'
 import { useState, useRef } from 'react'
 import style from '../style.js'
 import globals from '../globals.js'
-import * as app from '../app.js'
 import { motion } from "motion/react"
 
 // Tile Component
 const LetterTile = ({ row, col }) => {
     let [value, setValue] = useState('')
-    let [rotation, setRotation] = useState(0)
+    let [rotation, setRotation] = useState(360)
 
     globals.tileRefs[row][col] = useRef(null)
 
@@ -19,7 +18,12 @@ const LetterTile = ({ row, col }) => {
     return (
         <motion.div 
             style={style.letterTile} 
-            animate={{ rotate: rotation }}>
+            animate={{ 
+                rotate: rotation,
+                transition: {
+                    duration: 2
+                }
+            }}>
             <TextInput
                 ref={globals.tileRefs[row][col]}
                 style={style.letterInput}
